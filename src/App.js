@@ -8,13 +8,22 @@ import * as BooksAPI from './BooksAPI'
 
 class BooksApp extends React.Component {
   state = {
-    books : [],
-    shelves : ['Currently Reading', 'Want to Read', 'Read']
+    allBooks : [],
+    shelves : [{
+                title: 'Currently Reading', 
+                books: [1, 2]
+              }, {
+                title: 'Want to Read',
+                books: [1, 2, 3]
+              }, {
+                title: 'Read',
+                books: [1, 2, 3, 4, 5] 
+              } ], 
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(books => (
-      this.setState({books})
+      this.setState({allBooks: books})
       ))
   }
 
@@ -39,7 +48,7 @@ class BooksApp extends React.Component {
               <div>
                 {this.state.shelves.map(shelf => {
                   return(
-                  <BookShelf key={shelf} books={this.state.books} title={shelf}/>
+                  <BookShelf key={shelf} books={shelf.books} title={shelf.title}/>
                     )
                 })}
               </div>
