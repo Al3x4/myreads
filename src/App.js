@@ -11,13 +11,13 @@ class BooksApp extends React.Component {
     allBooks : [],
     shelves : [{
                 title: 'Currently Reading', 
-                books: [1, 2]
+                books: []
               }, {
                 title: 'Want to Read',
-                books: [1, 2, 3]
+                books: []
               }, {
                 title: 'Read',
-                books: [1, 2, 3, 4, 5] 
+                books: [] 
               } ], 
   }
 
@@ -28,12 +28,13 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    console.log(this.state.allBooks)
     return (
       <div className="app">
         <Route
           path='/search'
           render={({history}) => (
-            <Search/>
+            <Search books={this.state.allBooks}/>
           )}
         />
 
@@ -48,7 +49,7 @@ class BooksApp extends React.Component {
               <div>
                 {this.state.shelves.map(shelf => {
                   return(
-                  <BookShelf key={shelf} books={shelf.books} title={shelf.title}/>
+                  <BookShelf key={shelf.title} books={shelf.books} title={shelf.title}/>
                     )
                 })}
               </div>
