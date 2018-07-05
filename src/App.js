@@ -28,7 +28,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.allBooks)
+    console.log('all books are', this.state.allBooks)
     return (
       <div className="app">
         <Route
