@@ -13,7 +13,6 @@ class Search extends Component {
 		this.setState({ query : inputedQuery.trim() })
 	}
 
-	clearQuery = () => this.setState({query : ''})
 
 	render() {
 		const {query} = this.state;
@@ -25,6 +24,7 @@ class Search extends Component {
 				))
 		}
 
+		
 		return(
 			<div className="search-books">
               <div className="search-books-bar">
