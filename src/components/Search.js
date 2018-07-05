@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import camelCase from 'camelcase'
 import Book from './Book'
 import * as BooksAPI from '../BooksAPI' 
 
@@ -55,7 +56,8 @@ class Search extends Component {
                 		
                 		return (
 											<li key={book.id}>
-                        <Book book={book}/>
+                        <Book book={book}                   
+						moveBook={this.props.moveBook}/>
                       </li>		
              				)
 

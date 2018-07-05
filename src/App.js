@@ -11,13 +11,13 @@ class BooksApp extends React.Component {
     allBooks : [],
     shelves : [{
                 title: 'Currently Reading', 
-                books: []
+                books: ["nggnmAEACAAJ", "sJf1vQAACAAJ", "OECC3GyCXe8C"]
               }, {
                 title: 'Want to Read',
-                books: []
+                books: ["evuwdDLfAyYC", "74XNzF_al3MC", "oBK6mi7xBlIC"]
               }, {
                 title: 'Read',
-                books: [] 
+                books: ["jAUODAAAQBAJ", "IOejDAAAQBAJ"] 
               } ], 
   }
 
@@ -27,14 +27,33 @@ class BooksApp extends React.Component {
       ))
   }
 
+  moveBook(book, shelf) {
+    BooksAPI.update(book, shelf).then(res => {
+      console.log(res)
+      this.setState({
+        shelves : [
+          {
+            books: res.currentlyReading
+          },
+          {
+            books: res.wantToRead
+          },
+          {
+            books: res.read
+          }
+
+        ] 
+      })
+    })
+  }
+
   render() {
-    console.log('all books are', this.state.allBooks)
     return (
       <div className="app">
         <Route
           path='/search'
           render={({history}) => (
-            <Search shelvedBooks={this.state.allBooks}/>
+            <Search moveBook={this.moveBook}/>
           )}
         />
 
@@ -49,7 +68,12 @@ class BooksApp extends React.Component {
               <div>
                 {this.state.shelves.map(shelf => {
                   return(
-                  <BookShelf key={shelf.title} books={shelf.books} title={shelf.title}/>
+                  <BookShelf 
+                  key={shelf.title} 
+                  books={shelf.books} 
+                  allBooks={this.state.allBooks}
+                  title={shelf.title} 
+                  moveBook={this.moveBook}/>
                     )
                 })}
               </div>

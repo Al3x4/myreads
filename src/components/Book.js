@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 class Book extends Component {
-  moveBook = (e) => this.props.moveBook(e.target.value)
+  moveBook = (e) => this.props.moveBook(this.props.book, e.target.value)
 
 	render(){
 		return(
