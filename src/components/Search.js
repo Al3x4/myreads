@@ -35,8 +35,11 @@ class Search extends Component {
 					})
 				this.setState({foundBooks: result})
 				})
+		} 
+		//if there is no input, do not sdisplay results
+		if(query === '' && this.state.foundBooks.length) {
+			this.setState({foundBooks: []})
 		}
-
 		
 		return(
 			<div className="search-books">

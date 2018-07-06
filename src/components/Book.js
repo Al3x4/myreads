@@ -5,10 +5,16 @@ class Book extends Component {
 
 	render(){
     const {book} = this.props
+    let thumb = '';
+    if (book.imageLinks){
+      thumb = book.imageLinks.smallThumbnail
+    } else {
+      thumb = ''
+    }
 		return(
 			 <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${thumb})` }}></div>
                 <div className="book-shelf-changer">
                   <select value={book.shelf} onChange={this.moveBook}>
                     <option defaultValue="none" value="move" disabled>Move to...</option>
