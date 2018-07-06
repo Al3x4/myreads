@@ -18,7 +18,7 @@ class BookShelf extends Component{
 								return(
 								<li key={book.id}>
 									<Book 
-									book={book}  
+									book={book} 
 									moveBook={moveBook}/>
 								</li>		
 								)

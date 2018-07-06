@@ -4,11 +4,11 @@ class Book extends Component {
   moveBook = (e) => this.props.moveBook(this.props.book, e.target.value)
 
 	render(){
-    const book = this.props.book
+    const {book} = this.props
 		return(
 			 <div className="book">
               <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url('${book.imageLinks.smallThumbnail}')` }}></div>
+                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                 <div className="book-shelf-changer">
                   <select value={book.shelf} onChange={this.moveBook}>
                     <option defaultValue="none" value="move" disabled>Move to...</option>

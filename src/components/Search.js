@@ -10,16 +10,15 @@ class Search extends Component {
 			}
 	
 	updateQuery = (inputedQuery) => {
-		this.setState({ query : inputedQuery.trim() })
+		this.setState({ query : inputedQuery})
 	}
 
 
 	render() {
 		const {query} = this.state;
-
 		if (query) {
 			let result =[];
-			BooksAPI.search(query)
+			BooksAPI.search(query.trim())
 			.then(foundBooks => {
 
 					//if a book is already shelved, get the shelf property and give to found book
