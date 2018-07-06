@@ -13,13 +13,12 @@ class BookShelf extends Component{
 				<div className="bookshelf-books">
 					<ol className="books-grid">
 						{this.props.allBooks
-							.filter(book => this.props.books.includes(book.id))
+							.filter(book => book.shelf === camelCase(this.props.title))
 							.map((book) => {
-							return(
+								return(
 								<li key={book.id}>
 									<Book 
-									book={book} 
-									bookShelf={camelCase(this.props.title)} 
+									book={book}  
 									moveBook={moveBook}/>
 								</li>		
 								)

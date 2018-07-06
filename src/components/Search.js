@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import camelCase from 'camelcase'
 import Book from './Book'
 import * as BooksAPI from '../BooksAPI' 
 
@@ -19,10 +18,24 @@ class Search extends Component {
 		const {query} = this.state;
 
 		if (query) {
+			let result =[];
 			BooksAPI.search(query)
-			.then(foundBooks => (
-				this.setState({foundBooks})
-				))
+			.then(foundBooks => {
+
+					//if a book is already shelved, get the shelf property and give to found book
+					result = foundBooks.map(foundBook => {
+						if (this.props.allBooks.length) {
+							let sameBookShelved = this.props.allBooks.filter(book => book.id === foundBook.id)
+							if (sameBookShelved.length) {
+								foundBook.shelf = sameBookShelved[0].shelf
+							} else {
+								foundBook.shelf = 'none'
+							}
+						}
+						return foundBook;
+					})
+				this.setState({foundBooks: result})
+				})
 		}
 
 		
@@ -53,11 +66,11 @@ class Search extends Component {
               <div className="search-books-results">
                 <ol className="books-grid">
                 	{this.state.foundBooks.map(book => {
-                		
                 		return (
 											<li key={book.id}>
-                        <Book book={book}                   
-						moveBook={this.props.moveBook}/>
+                        <Book 
+                        book={book}                   
+												moveBook={this.props.moveBook}/>
                       </li>		
              				)
 

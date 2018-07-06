@@ -11,13 +11,13 @@ class BooksApp extends React.Component {
     allBooks : [],
     shelves : [{
                 title: 'Currently Reading', 
-                books: ["nggnmAEACAAJ", "sJf1vQAACAAJ", "OECC3GyCXe8C"]
+                books: []
               }, {
                 title: 'Want to Read',
-                books: ["evuwdDLfAyYC", "74XNzF_al3MC", "oBK6mi7xBlIC"]
+                books: []
               }, {
                 title: 'Read',
-                books: ["jAUODAAAQBAJ", "IOejDAAAQBAJ"] 
+                books: [] 
               } ], 
   }
 
@@ -27,24 +27,27 @@ class BooksApp extends React.Component {
       ))
   }
 
-  moveBook(book, shelf) {
-    BooksAPI.update(book, shelf).then(res => {
-      console.log(res)
-      this.setState({
-        shelves : [
-          {
-            books: res.currentlyReading
-          },
-          {
-            books: res.wantToRead
-          },
-          {
-            books: res.read
-          }
+  componentDidUpdate() {
+        BooksAPI.getAll().then(books => (
+      this.setState({allBooks: books})
+      ))
+  }
 
-        ] 
+  moveBook(book, shelf) {
+    BooksAPI.update(book, shelf).then(res => (
+      this.setState({
+            shelves : [{
+                title: 'Currently Reading', 
+                books: res.currentlyReading
+              }, {
+                title: 'Want to Read',
+                books: res.wantToRead
+              }, {
+                title: 'Read',
+                books: res.read
+              } ]
       })
-    })
+    ))
   }
 
   render() {
@@ -53,7 +56,11 @@ class BooksApp extends React.Component {
         <Route
           path='/search'
           render={({history}) => (
-            <Search moveBook={this.moveBook}/>
+            <Search 
+            moveBook={this.moveBook}
+            allBooks={this.state.allBooks}
+
+            />
           )}
         />
 
@@ -70,7 +77,6 @@ class BooksApp extends React.Component {
                   return(
                   <BookShelf 
                   key={shelf.title} 
-                  books={shelf.books} 
                   allBooks={this.state.allBooks}
                   title={shelf.title} 
                   moveBook={this.moveBook}/>
