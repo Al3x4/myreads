@@ -1,6 +1,7 @@
 import React from 'react'
 // import * as BooksAPI from './BooksAPI'
 import { Route, Link } from 'react-router-dom'
+import camelCase from 'camelcase'
 import './App.css'
 import Search from './components/Search'
 import BookShelf from './components/BookShelf'
@@ -9,45 +10,25 @@ import * as BooksAPI from './BooksAPI'
 class BooksApp extends React.Component {
   state = {
     allBooks : [],
-    shelves : [{
-                title: 'Currently Reading', 
-                books: []
-              }, {
-                title: 'Want to Read',
-                books: []
-              }, {
-                title: 'Read',
-                books: [] 
-              } ], 
+    shelves : ['Currently Reading', 'Want to Read', 'Read' ], 
   }
 
-  componentDidMount() {
+  getBooks = () => {
     BooksAPI.getAll().then(books => (
       this.setState({allBooks: books})
       ))
   }
 
+  componentDidMount() {
+    this.getBooks()
+  }
+
   componentDidUpdate() {
-        BooksAPI.getAll().then(books => (
-      this.setState({allBooks: books})
-      ))
+    this.getBooks()   
   }
 
   moveBook(book, shelf) {
-    BooksAPI.update(book, shelf).then(res => (
-      this.setState({
-            shelves : [{
-                title: 'Currently Reading', 
-                books: res.currentlyReading
-              }, {
-                title: 'Want to Read',
-                books: res.wantToRead
-              }, {
-                title: 'Read',
-                books: res.read
-              } ]
-      })
-    ))
+    BooksAPI.update(book, shelf)        
   }
 
   render() {
@@ -76,9 +57,9 @@ class BooksApp extends React.Component {
                 {this.state.shelves.map(shelf => {
                   return(
                   <BookShelf 
-                  key={shelf.title} 
+                  key={camelCase(shelf)} 
                   allBooks={this.state.allBooks}
-                  title={shelf.title} 
+                  title={shelf} 
                   moveBook={this.moveBook}/>
                     )
                 })}

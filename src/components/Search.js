@@ -21,22 +21,22 @@ class Search extends Component {
 			BooksAPI.search(query.trim())
 			.then(foundBooks => {
 
-					//if a book is already shelved, get the shelf property and give to found book
-					result = foundBooks.map(foundBook => {
-						if (this.props.allBooks.length) {
-							let sameBookShelved = this.props.allBooks.filter(book => book.id === foundBook.id)
-							if (sameBookShelved.length) {
-								foundBook.shelf = sameBookShelved[0].shelf
-							} else {
-								foundBook.shelf = 'none'
-							}
+				//if a book is already shelved, get the shelf property and give to found book
+				result = foundBooks.map(foundBook => {
+					if (this.props.allBooks.length) {
+						let sameBookShelved = this.props.allBooks.filter(book => book.id === foundBook.id)
+						if (sameBookShelved.length) {
+							foundBook.shelf = sameBookShelved[0].shelf
+						} else {
+							foundBook.shelf = 'none'
 						}
-						return foundBook;
-					})
+					}
+					return foundBook;
+				})
 				this.setState({foundBooks: result})
 				})
 		} 
-		//if there is no input, do not sdisplay results
+		//if there is no input, do not display results
 		if(query === '' && this.state.foundBooks.length) {
 			this.setState({foundBooks: []})
 		}
