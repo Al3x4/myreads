@@ -12,6 +12,9 @@ The user can search for books and organise them on three shelves: *Currently Rea
 * install all project dependencies with `npm install`
 * start server with `npm start`. This will opena browser widow with the application running on port `3000`
 
+### Live version
+The live version of the app, built with gh-pages, is available [here](https://al3x4.github.io/myreads/). 
+
 ### Important
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
 
