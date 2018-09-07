@@ -6,7 +6,8 @@ import './App.css'
 import Search from './components/Search'
 import BookShelf from './components/BookShelf'
 import * as BooksAPI from './BooksAPI' 
-
+const baseUrl = process.env.PUBLIC_URL;
+console.log(baseUrl)
 class BooksApp extends React.Component {
 	state = {
 		allBooks : [],
@@ -35,16 +36,17 @@ class BooksApp extends React.Component {
 		return (
 			<div className="app">
 				<Route
-				path='/search'
+				path={baseUrl + '/search'}
 				render={({history}) => (
 					<Search 
 					moveBook={this.moveBook}
 					allBooks={this.state.allBooks}
+					baseUrl = {baseUrl}
 					/>
 					)}
 				/>
 				<Route
-					exact path='/'
+					exact path={baseUrl + '/'}
 					render={()=>(
 						<div className="list-books">
 							<div className="list-books-title">
@@ -65,7 +67,7 @@ class BooksApp extends React.Component {
 							</div>
 							<div className="open-search">
 								<Link 
-									to = '/search'>
+									to = {baseUrl + '/search'}>
 									Add a book
 								</Link>
 							</div>
