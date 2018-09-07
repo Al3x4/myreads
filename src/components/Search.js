@@ -45,7 +45,7 @@ class Search extends Component {
 			<div className="search-books">
 				<div className="search-books-bar">
 					<Link 
-						to='/' 
+						to={this.props.baseUrl + '/'} 
 						className="close-search">Close</Link>
 					<div className="search-books-input-wrapper">
 						<input 
